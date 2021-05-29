@@ -216,15 +216,31 @@ right child = left + 1
 
 
 
-# 2. 배열 회전
+# 2. Array
 
-## 2-1. 저글링 알고리즘
+정적으로 할당한 공간
+
+- 장점
+
+  1. 인덱스로 탐색이 빠르다.
+
+- 단점
+
+  1. 삽입,삭제가 느리다.
+
+  2. 고정된 공간이라 메모리 효율성은 linked list보다 떨어진다. 
+
+     
+
+# 3. 배열 회전
+
+## 3-1. 저글링 알고리즘
 
 ![](https://cdncontribute.geeksforgeeks.org/wp-content/uploads/arra.jpg)
 
 배열 크기의 최대 공약수로 집합을 묶어서 회전시킨다. 
 
-## 2-2. 역전 알고리즘
+## 3-2. 역전 알고리즘
 
 배열의 크기가 n이고 회전 횟수가 d일경우
 
@@ -234,4 +250,68 @@ right child = left + 1
 2. reverse(d), reverse(n-d) : (2,1/ 5,4,3)
 3. merge : (2,1,5,4,3)
 4. revers() : (3,4,5,1,2)
+
+
+
+# 4. Linked List
+
+![](https://www.geeksforgeeks.org/wp-content/uploads/gq/2013/03/Linkedlist.png)
+
+- 장점 
+  1. 동적으로 생성할 수 있다.
+  2. 삽입, 삭제가 편하다.
+- 단점
+  1. 배열의 인덱스 검색보다 느리다. (순차적 검색 필요)
+  2. 포인터를 저장할 추가적인 공간이 필요하다. 
+
+
+
+# 5. Stack / Queue
+
+- Stack : LIFO (Last In First Out)
+- Queue : FIFO (First In First Out)
+
+---
+
+- Stack : DFS 탐색
+- Queue : BFS 탐색
+
+---
+
+- Stack : push(), pop()
+- Queue : enqueue(), dequeue()
+
+---
+
+- Stack : 함수 콜스택, 역순 출력
+- Queue : 버퍼
+
+### 5-1. Queue 구현
+
+큐를 array로 구현하면 문제가 생긴다. 왜냐하면 front/rear(dequeue 위치/enqueue 위치)는 -1로 초기화가 된다.  
+
+만약 enqueue가 생기면 rear를 +1하고 값을 삽입한다.  
+
+dequeue가 생기면 front를 +1하고 값을 얻은뒤 그 공간을 삭제한다.  
+
+isEmpty : front=rear이면 비어졌다.  
+
+isFull : rear=queueSize-1이면 가득찼다.   
+
+하지만, front를 +1해왔기때문에 사실상 앞에 공간이 생겼음에도 불구하고 queue가 꽉찼다고 착각할 수 있다. 이를 개선한 것이 원형 큐이다. 
+
+## 5-2. 원형 Queue
+
+논리적으로 배열의 처음과 끝이 같다고 생각한다. 
+
+front/rear의 초기값 = 0  
+
+front/rear를 배열 순환시키면서 탐색한다. 
+
+- 장점 :
+  1. 메모리 공간 효율이 좋다.
+- 단점 : 
+  1. 배열이기때문에 어쩔수없이 큐의 크기가 한정되어있다.
+
+단점을 개선하기 위해서 연결리스트 큐를 사용한다. 공간의 제약이 없으며 삽입,삭제가 편리하다. (O(1))
 
