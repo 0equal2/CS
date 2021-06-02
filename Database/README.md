@@ -85,33 +85,123 @@ Subject 테이블에는 속성값이 수강과목, 교수님, 강의실이 있�
 
   
 
-## 3. JOIN
+# 3. JOIN
 
 > https://coding-factory.tistory.com/87
 
-### 3-1. INNER JOIN
+## 3-1. INNER JOIN
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile9.uf.tistory.com%2Fimage%2F99799F3E5A8148D7036659)
 
 
 
-### 3-2. LEFT OUTER JOIN
+## 3-2. LEFT OUTER JOIN
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile6.uf.tistory.com%2Fimage%2F997E7F415A81490507F027)
 
-### 3-3. RIGHT OUTER JOIN
+## 3-3. RIGHT OUTER JOIN
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile25.uf.tistory.com%2Fimage%2F9984CE355A8149180ABD1D)
 
-### 3-4. FULL OUTER JOIN
+## 3-4. FULL OUTER JOIN
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile24.uf.tistory.com%2Fimage%2F99195F345A8149391BE0C3)
 
-### 3-5. CROSS JOIN
+## 3-5. CROSS JOIN
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile10.uf.tistory.com%2Fimage%2F993F4E445A8A2D281AC66B)
 
-### 3-6. SELF JOIN
+## 3-6. SELF JOIN
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile25.uf.tistory.com%2Fimage%2F99341D335A8A363D0614E8)
+
+
+
+# 4. Transaction
+
+트랜잭션이란 작업의 안정성을 보장해주는 것이다. 트랜잭션의 특성은 ACID이다.
+
+- Atomicity : 원자성
+- Consistency : 일관성
+- Isolation : 고립성
+- Durability : 지속성
+
+
+
+## 4-1. ACID
+
+- 원자성 : 작업 중간에 문제 발생 없을 경우에만 수행한다. (모두 반영되거나, 모두 반영되지 않거나)
+- 일관성 : 데이터가 업데이트 후에도 DB제약조건을 만족시키고 있어야한다. (전상황과 동일해야함)
+- 고립성 : 각각의 트랜잭션은 서로 간섭없이 독립적으로 수행된다.
+- 지속성 : 트랜잭션이 정상으로 종료되어도 영구적으로 데이터베이스에 작업의 결과가 저장되어있어야한다. 
+
+
+
+
+
+## 4-2. 트랜잭션 예시
+
+가장 예시로 많이 들어지는 것은 돈거래이다. 예를들어 A가 B에게 10000을 송금한다고 해보자. 
+
+- A : 10000 출금
+- B : 10000 입금
+
+이 둘이 동시에 이루어진다면 ? 문제가 발생!
+
+A가 먼저 수행되고 B가 수행되어야한다. 이러한 관련 쿼리를 묶어서 수행하는 것을 트랜잭션이라고 한다. 
+
+1. 출금 쿼리 처리기 (10000 출금)
+2. 데에터 캐시가 필요한 데이터 파일 search
+3. 로그 캐시에 undo 기록 : 변경 전의 값을 기록
+4. 로그 캐시에 redo 기록 : 변경 후의 값을 기록
+5. 데이터 캐시에 결과 반영
+
+
+
+로그 캐시를 사용하는 이유는 만약 예상치못한 오류가 발생했을 경우를 대비해서이다.  
+
+오류 발생시 Redo를 먼저 수행하고 Undo를 실행한다.  
+
+ROLLBACK이 발생했을 경우에는 Undo를 실행한다.  
+
+
+
+## 4-3. 트랜잭션 격리 수준
+
+동시에 데이터베이스에 접근하는 경우 제어방버을 말한다. 
+
+1. Read-Uncommited
+2. Read-Commited
+3. Repeatable-Read
+4. Serializable
+
+
+
+1->4로 갈수록 격리가 높아지고 4->1로 갈수록 동시성을 허용한다.  
+
+1. 커밋전의 트랜잭션의 데이터 변경 내용을 다른 커밋이 읽게 허용해준다. 
+
+   -> Dirty Read 발생!!!!! 
+
+   -> 만약 A가 바꾼 것을 B가 읽었는데 A가 롤백하면 문제가 생긴다.
+
+2. 커밋이 완료된 것만 다른 트랜잭션이 읽게해준다. 
+
+   -> A 트랜잭션이 수행중이면 변경 전 것만 B가 읽을 수 있다.
+
+   -> A 트랜잭션이 커밋하면 변경후인 데이터를 B가 읽을 수 있다.
+
+   -> Non-Repeatable Read 발생!!!!!
+
+   -> B트랜잭션이 select를 두번하면 A 커밋전과 커밋후의 내용이 달라져버릴 수 있다. 
+
+3. 트랜잭션 범위 내에서 조회한 내용이 항상 동일하도록 보장시킨다.
+
+   -> A 트랜잭션이 커밋전에 B 트랜잭션이 읽었으면 A 트랜잭션이 커밋후에도 B 트랜잭션은 A의 커밋 전값을 읽는다.
+
+   -> Phandom Read 발생!!!! (Non-Repeatable Read 종류)
+
+   -> 새로 생성된 행이나 없어진 행은 반영이 안된다. (커밋전이나 커밋후가 달라져 버림...)
+
+4. 완전 독립성 보장, 다른 트랜잭션이 접근 절대 불가.
 
