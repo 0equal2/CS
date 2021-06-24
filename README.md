@@ -2,13 +2,13 @@
 
 Ready for Interview.
 
-- Algorithm
-- Database
-- Language
-- Network
-- Operating System
-- Hadoop
-- Spark
+- [Algorithm](https://github.com/0equal2/CS/tree/master/Algorithm)
+- [Database](https://github.com/0equal2/CS/tree/master/Database)
+- [Language](https://github.com/0equal2/CS/tree/master/Language)
+- [Network](https://github.com/0equal2/CS/tree/master/Network)
+- [Operating System](https://github.com/0equal2/CS/tree/master/Operating%20System)
+- [Hadoop](https://github.com/0equal2/CS/tree/master/Hadoop)
+- [Spark](https://github.com/0equal2/CS/tree/master/Spark)
 
 ---
 
@@ -244,3 +244,54 @@ Ready for Interview.
 
    
 
+---
+
+## Hadoop
+
+1. 하둡이란?
+
+2. 하둡 생태계
+
+3. 분산처리 구조
+
+   3-1. Master-Slave 서버 구조
+
+   3-2. Scale Up보다는 Scale Out
+
+   3-3. 분산과 병렬의 차이
+
+4. 하둡 특성
+
+   4-1. 하둡 분산파일시스템
+
+   4-2. 하둡 맵리듀스
+
+5. 하둡 활용
+
+
+
+---
+
+## Spark
+
+1. MR / Spark
+
+2. 스파크 역할
+
+3. 스파크 기본 아키텍쳐
+
+   3-1. Spark Language APIs
+
+   3-2. DataFrame
+
+4. 스파크 활용 예시
+
+5. 데이터처리
+
+   5-1. Spark Streaming 과정
+
+   5-2. Checkpointing
+
+6. Spark 2.0 : Structured Streaming
+
+7. 스파크 Language 차이
